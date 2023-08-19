@@ -1,0 +1,9 @@
+import org.openqa.selenium.Proxy;
+
+public class ProxyHandler {
+    public static Proxy createProxy(String proxyStr) {
+        // ... Proxy creation logic ...
+        System.out.println("hey broJ");
+    }
+}
+

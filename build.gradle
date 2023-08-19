@@ -1,0 +1,27 @@
+plugins {
+  id 'application'
+  id 'org.openjfx.javafxplugin' version '0.0.9'
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+
+dependencies {
+    implementation 'org.seleniumhq.selenium:selenium-java:4.11.0'
+    implementation 'io.github.bonigarcia:webdrivermanager:5.4.1'
+}
+
+
+
+
+
+javafx {
+    version = "16"
+    modules = [ 'javafx.controls' ]
+}
+
+
+mainClassName = 'Gui'
