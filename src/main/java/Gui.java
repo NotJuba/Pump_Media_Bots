@@ -7,8 +7,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 import java.io.File;
-
 
 public class Gui extends Application {
     
@@ -17,6 +17,9 @@ public class Gui extends Application {
     private ChoiceBox<String> platformChoiceBox;
     private Button startButton;
     private Button stopButton;
+    
+    private Label timespanLabel;
+    private HBox swipeDataBox;
 
     public static void main(String[] args) {
         launch(args);
@@ -24,8 +27,10 @@ public class Gui extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Pump Dating apps ");
+        primaryStage.setTitle("Pump Dating apps");
         initializeUI(primaryStage);
+        Image icon = new Image(getClass().getResourceAsStream("/icon.png"));
+        primaryStage.getIcons().add(icon);
     }
 
     private void initializeUI(Stage primaryStage) {
@@ -38,9 +43,12 @@ public class Gui extends Application {
         createProfileSelectionSection(root);
         createPlatformSelectionSection(root);
         createProxyInputSection(root);
+        createSwipeInfoSection(root); 
         createButtonsSection(root);
         
         Scene scene = new Scene(root, 500, 400);
+        scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -52,6 +60,7 @@ public class Gui extends Application {
         Label proxyLabel = new Label("Proxy:");
         proxyTextField = new TextField();
         proxyTextField.setPrefWidth(200);
+        proxyTextField.getStyleClass().add("input-field");
 
         proxyBox.getChildren().addAll(proxyLabel, proxyTextField);
         root.getChildren().add(proxyBox);
@@ -63,6 +72,7 @@ public class Gui extends Application {
 
         Label profileLabel = new Label("Select Profile:");
         Button browseButton = new Button("Browse");
+        browseButton.getStyleClass().add("browse-button");
         browseButton.setOnAction(event -> browseDirectory());
 
         selectedProfileLabel = new Label();
@@ -77,7 +87,7 @@ public class Gui extends Application {
 
         Label platformLabel = new Label("Select Platform:");
         platformChoiceBox = new ChoiceBox<>();
-        platformChoiceBox.getItems().addAll("Tinder", "Bumble","Established Men", "Badoo" ,"Match.com", "Plenty of Fish", "ALT" , "Flirt","OneNightFriend",  "Zoosk", "elitesingles", "eHarmony", "Gleeden", "Parship"); // Add more platforms if needed
+        platformChoiceBox.getItems().addAll("Tinder", "Bumble","Established Men", "Badoo" ,"Match.com", "Plenty of Fish", "ALT" , "Flirt","OneNightFriend",  "Zoosk", "elitesingles", "eHarmony", "Gleeden", "Parship");
 
         platformBox.getChildren().addAll(platformLabel, platformChoiceBox);
         root.getChildren().add(platformBox);
@@ -88,13 +98,33 @@ public class Gui extends Application {
         buttonsBox.setAlignment(Pos.CENTER);
 
         startButton = new Button("Start");
-        // TODO: Add functionality
+        //  I've gotta get every start to link up with the platform and head straight to a script
 
         stopButton = new Button("Stop");
-        // TODO: Add functionality
+        // YOO Guven sorry for the bad GUI 
 
         buttonsBox.getChildren().addAll(startButton, stopButton);
         root.getChildren().add(buttonsBox);
+    }
+
+    private void createSwipeInfoSection(VBox root) {
+        VBox swipeInfoBox = new VBox(10);
+        swipeInfoBox.setAlignment(Pos.CENTER);
+    
+        timespanLabel = new Label("Timespan: 0 hours"); 
+    
+        swipeDataBox = new HBox(10);
+        swipeDataBox.setAlignment(Pos.CENTER);
+    
+        Label matchesLabel = new Label("Matches: 0"); 
+        Label totalSwipesLabel = new Label("Total Swipes: 0"); 
+        Label rightSwipesLabel = new Label("Right Swipes: 0"); 
+        Label leftSwipesLabel = new Label("Left Swipes: 0"); 
+    
+        swipeDataBox.getChildren().addAll(matchesLabel, totalSwipesLabel, rightSwipesLabel, leftSwipesLabel);
+    
+        swipeInfoBox.getChildren().addAll(timespanLabel, swipeDataBox);
+        root.getChildren().add(swipeInfoBox);
     }
 
     private void browseDirectory() {
